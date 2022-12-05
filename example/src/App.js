@@ -3,7 +3,7 @@ import ReactAlfaPayment from 'react-alfa-payment'
 function App() {
   return (
     <div className="App">
-      <ReactAlfaPayment render={<button>Hello</button>} />
+      <ReactAlfaPayment render={<button>Hello JS</button>} />
     </div>
   );
 }
