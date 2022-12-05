@@ -2,7 +2,7 @@
 
 [![NPM](https://img.shields.io/npm/v/react-alfa-payment.svg)](https://www.npmjs.com/package/react-alfa-payment)
 [![npm](https://img.shields.io/npm/dm/react-alfa-payment.svg)](https://www.npmjs.com/package/react-alfa-payment)
-![GitHub](https://img.shields.io/github/license/Shahzaib/react-alfa-payment)
+![GitHub](https://img.shields.io/github/license/sshahzaiib/react-alfa-payment)
 
 This project is generated from [react-typescript-library template](https://github.com/alioguzhan/react-typescript-library).
 
@@ -26,4 +26,4 @@ yarn add react-alfa-payment
 
 ## License
 
-MIT © [Shahzaib](https://github.com/Shahzaib)
+MIT © [Shahzaib](https://github.com/sshahzaiib)
