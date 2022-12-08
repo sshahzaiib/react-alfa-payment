@@ -15,11 +15,11 @@ export type Config = {
     secretKey1: string;
     secretKey2: string;
 };
-interface Props {
+export type Props = {
     message?: string;
     className?: string;
     alfaConfig: Config;
-}
+};
 /**
  * Main Component
  */
