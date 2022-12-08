@@ -44,13 +44,17 @@
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
+    "@types/crypto-js": "^4.1.1",
     "@types/jest": "^29.0.0",
     "@types/node": "^18.7.15",
+    "@types/qs": "^6.9.7",
     "@types/react": "^18.0.18",
     "@types/react-dom": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
+    "axios": "^1.2.1",
     "cross-env": "^7.0.3",
+    "crypto-js": "^4.1.1",
     "eslint": "^8.23.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^17.0.0",
@@ -69,6 +73,7 @@
     "lint-staged": "^13.0.3",
     "postcss": "^8.4.16",
     "prettier": "^2.7.1",
+    "qs": "^6.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rollup": "^2.79.0",
@@ -80,6 +85,9 @@
     "ts-jest": "^28.0.8",
     "typedoc": "^0.23.14",
     "typescript": "^4.8.2"
+  },
+  "browser": {
+    "crypto": false
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
