@@ -1,15 +1,28 @@
-import React from 'react';
+/// <reference types="react" />
 /**
  * Main Component Props
  */
-export interface Props {
+export type Config = {
+    merchantId: number | string;
+    storeId: number | string;
+    channelId: number | string;
+    merchantHash: string;
+    merchantUsername: string;
+    merchantPassword: string;
+    redirectUrl: string;
+    transactionReferenceNumber: string | number;
+    transactionAmount: number;
+    secretKey1: string;
+    secretKey2: string;
+};
+export type Props = {
     message?: string;
     className?: string;
-    render?: React.ReactElement;
-}
+    alfaConfig: Config;
+};
 /**
  * Main Component
  */
-declare function Index(props: Props): JSX.Element;
+declare const Index: ({ alfaConfig, className, message, }: Props) => JSX.IntrinsicElements[keyof JSX.IntrinsicElements];
 export default Index;
 //# sourceMappingURL=index.d.ts.map
