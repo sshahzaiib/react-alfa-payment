@@ -19,10 +19,11 @@ export type Props = {
     message?: string;
     className?: string;
     alfaConfig: Config;
+    isSandbox?: Boolean;
 };
 /**
  * Main Component
  */
-declare const Index: ({ alfaConfig, className, message, }: Props) => JSX.IntrinsicElements[keyof JSX.IntrinsicElements];
+declare const Index: ({ alfaConfig, className, message, isSandbox, }: Props) => JSX.IntrinsicElements[keyof JSX.IntrinsicElements];
 export default Index;
 //# sourceMappingURL=index.d.ts.map
