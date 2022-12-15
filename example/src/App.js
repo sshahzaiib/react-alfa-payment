@@ -15,16 +15,23 @@ function App() {
     transactionReferenceNumber: '',
     transactionAmount: 0,
   });
+  const [environment, setEnvironment] = useState('production');
   const handleChange = useCallback((e) => {
     setAlfaConfig((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   }, []);
+  const handleEnvChange = useCallback((e) => {
+    setEnvironment(e.target.value);
+  }, []);
   return (
     <div className="App">
       <h1>Test your credentials here</h1>
-      <p>This is a client only screen for testing, these credentials will never leave this screen or recorded by any means</p>
+      <p>
+        This is a client only screen for testing, these credentials will never
+        leave this screen or recorded by any means
+      </p>
       <input
         name="merchantId"
         id="merchantId"
@@ -92,7 +99,14 @@ function App() {
         value={alfaConfig.secretKey2}
         onChange={handleChange}
       />
-      <ReactAlfaPayment alfaConfig={alfaConfig} />
+      <select value={environment} onChange={handleEnvChange}>
+        <option value="sandbox">Sandbox</option>
+        <option value="production">Production</option>
+      </select>
+      <ReactAlfaPayment
+        alfaConfig={alfaConfig}
+        isSandbox={environment === 'sandbox'}
+      />
     </div>
   );
 }
