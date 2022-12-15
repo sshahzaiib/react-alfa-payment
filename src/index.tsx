@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { POST_URL } from 'utils/constants';
+import { POST_URL, SANDBOX_POST_URL } from 'utils/constants';
 import {
   generateRequestHash,
   getAlfaFormKeys,
@@ -28,6 +28,7 @@ export type Props = {
   message?: string;
   className?: string;
   alfaConfig: Config;
+  isSandbox?: Boolean;
 };
 
 /**
@@ -37,6 +38,7 @@ const Index = ({
   alfaConfig,
   className,
   message,
+  isSandbox = false,
 }: Props): JSX.IntrinsicElements[keyof JSX.IntrinsicElements] => {
   const [authToken, setAuthToken] = useState<string>('');
   const [requestHash, setRequestHash] = useState<string>('');
@@ -57,7 +59,7 @@ const Index = ({
           alfaConfig.secretKey1,
           alfaConfig.secretKey2
         );
-        const response = await getHSAuthToken(data, requestHash);
+        const response = await getHSAuthToken(data, requestHash, isSandbox);
         setAuthToken(response.AuthToken);
         const formRequestHash = generateRequestHash(
           { ...alfaFormKeys, AuthToken: response.AuthToken },
@@ -69,13 +71,13 @@ const Index = ({
         throw new Error(err);
       }
     },
-    [alfaFormKeys, alfaConfig]
+    [alfaConfig, isSandbox, alfaFormKeys]
   );
 
   useEffect(() => {
     if (authToken && requestHash) {
       const form = document.createElement('form');
-      form.setAttribute('action', POST_URL);
+      form.setAttribute('action', isSandbox ? SANDBOX_POST_URL : POST_URL);
       form.setAttribute('method', 'post');
       form.setAttribute('novalidate', 'novalidate');
       form.setAttribute('hidden', 'hidden');
@@ -93,7 +95,7 @@ const Index = ({
       document.body.appendChild(form);
       form.submit();
     }
-  }, [alfaFormKeys, authToken, requestHash]);
+  }, [alfaFormKeys, authToken, isSandbox, requestHash]);
 
   return (
     <button onClick={handleClick} type="button" className={className}>
