@@ -14,13 +14,12 @@
     "url": "https://github.com/sshahzaiib/react-alfa-payment",
     "type": "git"
   },
-  "homepage":"https://sshahzaiib.github.io/react-alfa-payment",
+  "homepage": "https://sshahzaiib.github.io/react-alfa-payment",
   "license": "MIT",
   "private": true,
   "scripts": {
     "start": "rollup -c rollup.config.js -w --bundleConfigAsCjs",
-    "build": "tsc && rollup -c rollup.config.js && yarn make:docs",
-    "make:docs": "typedoc",
+    "build": "tsc && rollup -c rollup.config.js",
     "coverage": "codecov -e TRAVIS_NODE_VERSION -f coverage/*.json",
     "test": "jest --coverage",
     "test:watch": "jest --coverage --watch",
@@ -80,7 +79,6 @@
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.33.0",
     "ts-jest": "^28.0.8",
-    "typedoc": "^0.23.14",
     "typescript": "^4.8.2"
   },
   "browser": {

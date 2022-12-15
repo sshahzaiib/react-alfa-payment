@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { HANDSHAKE_URL } from './constants';
+import { HANDSHAKE_URL, SANDBOX_HANDSHAKE_URL } from './constants';
 import { Config } from '..';
 import CryptoJS from 'crypto-js';
 
@@ -96,7 +96,8 @@ export const generateRequestHash = (
 
 export const getHSAuthToken = async (
   data: any,
-  HS_RequestHash: string
+  HS_RequestHash: string,
+  isSandbox: Boolean
 ): Promise<{
   AuthToken: string;
   ReturnURL: string;
@@ -122,6 +123,11 @@ export const getHSAuthToken = async (
     body: urlencoded,
   };
 
-  const response = await (await fetch(HANDSHAKE_URL, requestOptions)).json();
+  const response = await (
+    await fetch(
+      isSandbox ? SANDBOX_HANDSHAKE_URL : HANDSHAKE_URL,
+      requestOptions
+    )
+  ).json();
   return response;
 };

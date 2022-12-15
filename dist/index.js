@@ -71,7 +71,9 @@ function __generator(thisArg, body) {
 }
 
 var HANDSHAKE_URL = 'https://payments.bankalfalah.com/HS/HS/HS';
+var SANDBOX_HANDSHAKE_URL = 'https://payments.bankalfalah.com/HS/HS/HS';
 var POST_URL = 'https://payments.bankalfalah.com/SSO/SSO/SSO';
+var SANDBOX_POST_URL = 'https://payments.bankalfalah.com/SSO/SSO/SSO';
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -7065,7 +7067,7 @@ var generateRequestHash = function (values, secretKey1, secretKey2) {
     });
     return hash.toString();
 };
-var getHSAuthToken = function (data, HS_RequestHash) { return __awaiter(void 0, void 0, void 0, function () {
+var getHSAuthToken = function (data, HS_RequestHash, isSandbox) { return __awaiter(void 0, void 0, void 0, function () {
     var _data, myHeaders, urlencoded, requestOptions, response;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -7083,7 +7085,7 @@ var getHSAuthToken = function (data, HS_RequestHash) { return __awaiter(void 0, 
                     headers: myHeaders,
                     body: urlencoded,
                 };
-                return [4 /*yield*/, fetch(HANDSHAKE_URL, requestOptions)];
+                return [4 /*yield*/, fetch(isSandbox ? SANDBOX_HANDSHAKE_URL : HANDSHAKE_URL, requestOptions)];
             case 1: return [4 /*yield*/, (_a.sent()).json()];
             case 2:
                 response = _a.sent();
@@ -7096,9 +7098,9 @@ var getHSAuthToken = function (data, HS_RequestHash) { return __awaiter(void 0, 
  * Main Component
  */
 var Index = function (_a) {
-    var alfaConfig = _a.alfaConfig, className = _a.className, message = _a.message;
-    var _b = React.useState(''), authToken = _b[0], setAuthToken = _b[1];
-    var _c = React.useState(''), requestHash = _c[0], setRequestHash = _c[1];
+    var alfaConfig = _a.alfaConfig, className = _a.className, message = _a.message, _b = _a.isSandbox, isSandbox = _b === void 0 ? false : _b;
+    var _c = React.useState(''), authToken = _c[0], setAuthToken = _c[1];
+    var _d = React.useState(''), requestHash = _d[0], setRequestHash = _d[1];
     var alfaFormKeys = React__default["default"].useMemo(function () { return getAlfaFormKeys(alfaConfig || {}); }, [alfaConfig]);
     var handleClick = React.useCallback(function (e) { return __awaiter(void 0, void 0, void 0, function () {
         var data, requestHash_1, response, formRequestHash, err_1;
@@ -7113,7 +7115,7 @@ var Index = function (_a) {
                         return [2 /*return*/];
                     data = getAlfaHandshakeKeys(alfaConfig || {});
                     requestHash_1 = generateRequestHash(data, alfaConfig.secretKey1, alfaConfig.secretKey2);
-                    return [4 /*yield*/, getHSAuthToken(data, requestHash_1)];
+                    return [4 /*yield*/, getHSAuthToken(data, requestHash_1, isSandbox)];
                 case 2:
                     response = _a.sent();
                     setAuthToken(response.AuthToken);
@@ -7126,11 +7128,11 @@ var Index = function (_a) {
                 case 4: return [2 /*return*/];
             }
         });
-    }); }, [alfaFormKeys, alfaConfig]);
+    }); }, [alfaConfig, isSandbox, alfaFormKeys]);
     React.useEffect(function () {
         if (authToken && requestHash) {
             var form = document.createElement('form');
-            form.setAttribute('action', POST_URL);
+            form.setAttribute('action', isSandbox ? SANDBOX_POST_URL : POST_URL);
             form.setAttribute('method', 'post');
             form.setAttribute('novalidate', 'novalidate');
             form.setAttribute('hidden', 'hidden');
@@ -7143,7 +7145,7 @@ var Index = function (_a) {
             document.body.appendChild(form);
             form.submit();
         }
-    }, [alfaFormKeys, authToken, requestHash]);
+    }, [alfaFormKeys, authToken, isSandbox, requestHash]);
     return (React__default["default"].createElement("button", { onClick: handleClick, type: "button", className: className }, message !== null && message !== void 0 ? message : 'Submit'));
 };
 

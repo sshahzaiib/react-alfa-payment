@@ -46,7 +46,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 /* eslint-disable camelcase */
-import { HANDSHAKE_URL } from './constants';
+import { HANDSHAKE_URL, SANDBOX_HANDSHAKE_URL } from './constants';
 import CryptoJS from 'crypto-js';
 export var getAlfaHandshakeKeys = function (config) {
     if (!Object.keys(config).length)
@@ -100,7 +100,7 @@ export var generateRequestHash = function (values, secretKey1, secretKey2) {
     });
     return hash.toString();
 };
-export var getHSAuthToken = function (data, HS_RequestHash) { return __awaiter(void 0, void 0, void 0, function () {
+export var getHSAuthToken = function (data, HS_RequestHash, isSandbox) { return __awaiter(void 0, void 0, void 0, function () {
     var _data, myHeaders, urlencoded, requestOptions, response;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -118,7 +118,7 @@ export var getHSAuthToken = function (data, HS_RequestHash) { return __awaiter(v
                     headers: myHeaders,
                     body: urlencoded,
                 };
-                return [4 /*yield*/, fetch(HANDSHAKE_URL, requestOptions)];
+                return [4 /*yield*/, fetch(isSandbox ? SANDBOX_HANDSHAKE_URL : HANDSHAKE_URL, requestOptions)];
             case 1: return [4 /*yield*/, (_a.sent()).json()];
             case 2:
                 response = _a.sent();

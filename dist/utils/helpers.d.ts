@@ -27,7 +27,7 @@ export type AlfaFormKeys = {
 };
 export declare const getAlfaFormKeys: (config: Config) => AlfaFormKeys | {};
 export declare const generateRequestHash: (values: any, secretKey1: string, secretKey2: string) => string;
-export declare const getHSAuthToken: (data: any, HS_RequestHash: string) => Promise<{
+export declare const getHSAuthToken: (data: any, HS_RequestHash: string, isSandbox: Boolean) => Promise<{
     AuthToken: string;
     ReturnURL: string;
     success: boolean;
