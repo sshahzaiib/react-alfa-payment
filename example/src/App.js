@@ -3,18 +3,17 @@ import ReactAlfaPayment from 'react-alfa-payment';
 import { memo, useCallback, useState } from 'react';
 function App() {
   const [alfaConfig, setAlfaConfig] = useState({
-    merchantId: '13704',
-    storeId: '020095',
-    channelId: '1001',
-    merchantHash:
-      'OUU362MB1uqLRkqP4Ojalx7wWFFLmIDLk1I8ZJx2CL1BC1y7ilDBfH96WbutJM5j',
-    merchantUsername: 'akuhap',
-    merchantPassword: 'NCObZc2Z7FNvFzk4yqF7CA==',
-    redirectUrl: 'https://bazaarghar.com/redirect/alfa-callback',
-    secretKey1: 'UJFvFzyu78g6SrR8',
-    secretKey2: '6527658471290835',
-    transactionReferenceNumber: 'abc222',
-    transactionAmount: 1000,
+    merchantId: '',
+    storeId: '',
+    channelId: '',
+    merchantHash: '',
+    merchantUsername: '',
+    merchantPassword: '',
+    redirectUrl: '',
+    secretKey1: '',
+    secretKey2: '',
+    transactionReferenceNumber: '',
+    transactionAmount: 100,
   });
   const [environment, setEnvironment] = useState('production');
   const handleChange = useCallback((e) => {
@@ -107,7 +106,10 @@ function App() {
         <option value="sandbox">Sandbox</option>
         <option value="production">Production</option>
       </select>
-      <ReactAlfaPayment alfaConfig={alfaConfig} isSandbox={environment === "sandbox"} />
+      <ReactAlfaPayment
+        alfaConfig={alfaConfig}
+        isSandbox={environment === 'sandbox'}
+      />
     </div>
   );
 }
