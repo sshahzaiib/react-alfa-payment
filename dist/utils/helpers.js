@@ -101,7 +101,7 @@ export var generateRequestHash = function (values, secretKey1, secretKey2) {
     return hash.toString();
 };
 export var getHSAuthToken = function (data, HS_RequestHash, isSandbox) { return __awaiter(void 0, void 0, void 0, function () {
-    var _data, myHeaders, urlencoded, requestOptions, response;
+    var _data, myHeaders, urlencoded, requestOptions, response, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -118,11 +118,20 @@ export var getHSAuthToken = function (data, HS_RequestHash, isSandbox) { return 
                     headers: myHeaders,
                     body: urlencoded,
                 };
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 4, , 5]);
                 return [4 /*yield*/, fetch(isSandbox ? SANDBOX_HANDSHAKE_URL : HANDSHAKE_URL, requestOptions)];
-            case 1: return [4 /*yield*/, (_a.sent()).json()];
-            case 2:
+            case 2: return [4 /*yield*/, (_a.sent()).json()];
+            case 3:
                 response = _a.sent();
+                if (!response.AuthToken)
+                    throw new Error('Invalid Request');
                 return [2 /*return*/, response];
+            case 4:
+                error_1 = _a.sent();
+                throw new Error(error_1);
+            case 5: return [2 /*return*/];
         }
     });
 }); };
