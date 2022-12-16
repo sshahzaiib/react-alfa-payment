@@ -44,7 +44,6 @@ const Index = ({
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [requestHash, setRequestHash] = useState<string>('');
 
-  console.log({ isSandbox });
   const alfaFormKeys = React.useMemo(
     () => getAlfaFormKeys(alfaConfig || {}),
     [alfaConfig]

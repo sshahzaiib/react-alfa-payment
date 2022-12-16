@@ -7102,7 +7102,6 @@ var Index = function (_a) {
     var _c = React.useState(''), authToken = _c[0], setAuthToken = _c[1];
     var _d = React.useState(false), isSubmitting = _d[0], setIsSubmitting = _d[1];
     var _e = React.useState(''), requestHash = _e[0], setRequestHash = _e[1];
-    console.log({ isSandbox: isSandbox });
     var alfaFormKeys = React__default["default"].useMemo(function () { return getAlfaFormKeys(alfaConfig || {}); }, [alfaConfig]);
     var handleClick = React.useCallback(function (e) { return __awaiter(void 0, void 0, void 0, function () {
         var data, requestHash_1, response, formRequestHash, err_1;
