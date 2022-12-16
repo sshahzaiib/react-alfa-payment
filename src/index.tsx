@@ -41,8 +41,10 @@ const Index = ({
   isSandbox = false,
 }: Props): JSX.IntrinsicElements[keyof JSX.IntrinsicElements] => {
   const [authToken, setAuthToken] = useState<string>('');
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [requestHash, setRequestHash] = useState<string>('');
 
+  console.log({ isSandbox });
   const alfaFormKeys = React.useMemo(
     () => getAlfaFormKeys(alfaConfig || {}),
     [alfaConfig]
@@ -52,6 +54,7 @@ const Index = ({
     async (e: React.SyntheticEvent) => {
       e.preventDefault();
       try {
+        setIsSubmitting(true);
         if (typeof alfaConfig === 'undefined') return;
         const data = getAlfaHandshakeKeys(alfaConfig || {});
         const requestHash: string = generateRequestHash(
@@ -69,6 +72,8 @@ const Index = ({
         setRequestHash(formRequestHash);
       } catch (err: any) {
         throw new Error(err);
+      } finally {
+        setIsSubmitting(false);
       }
     },
     [alfaConfig, isSandbox, alfaFormKeys]
@@ -98,7 +103,12 @@ const Index = ({
   }, [alfaFormKeys, authToken, isSandbox, requestHash]);
 
   return (
-    <button onClick={handleClick} type="button" className={className}>
+    <button
+      disabled={isSubmitting}
+      onClick={isSubmitting ? undefined : handleClick}
+      type="button"
+      className={className}
+    >
       {message ?? 'Submit'}
     </button>
   );

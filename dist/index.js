@@ -71,9 +71,9 @@ function __generator(thisArg, body) {
 }
 
 var HANDSHAKE_URL = 'https://payments.bankalfalah.com/HS/HS/HS';
-var SANDBOX_HANDSHAKE_URL = 'https://payments.bankalfalah.com/HS/HS/HS';
+var SANDBOX_HANDSHAKE_URL = 'https://sandbox.bankalfalah.com/HS/HS/HS';
 var POST_URL = 'https://payments.bankalfalah.com/SSO/SSO/SSO';
-var SANDBOX_POST_URL = 'https://payments.bankalfalah.com/SSO/SSO/SSO';
+var SANDBOX_POST_URL = 'https://sandbox.bankalfalah.com/SSO/SSO/SSO';
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -7100,7 +7100,9 @@ var getHSAuthToken = function (data, HS_RequestHash, isSandbox) { return __await
 var Index = function (_a) {
     var alfaConfig = _a.alfaConfig, className = _a.className, message = _a.message, _b = _a.isSandbox, isSandbox = _b === void 0 ? false : _b;
     var _c = React.useState(''), authToken = _c[0], setAuthToken = _c[1];
-    var _d = React.useState(''), requestHash = _d[0], setRequestHash = _d[1];
+    var _d = React.useState(false), isSubmitting = _d[0], setIsSubmitting = _d[1];
+    var _e = React.useState(''), requestHash = _e[0], setRequestHash = _e[1];
+    console.log({ isSandbox: isSandbox });
     var alfaFormKeys = React__default["default"].useMemo(function () { return getAlfaFormKeys(alfaConfig || {}); }, [alfaConfig]);
     var handleClick = React.useCallback(function (e) { return __awaiter(void 0, void 0, void 0, function () {
         var data, requestHash_1, response, formRequestHash, err_1;
@@ -7110,7 +7112,8 @@ var Index = function (_a) {
                     e.preventDefault();
                     _a.label = 1;
                 case 1:
-                    _a.trys.push([1, 3, , 4]);
+                    _a.trys.push([1, 3, 4, 5]);
+                    setIsSubmitting(true);
                     if (typeof alfaConfig === 'undefined')
                         return [2 /*return*/];
                     data = getAlfaHandshakeKeys(alfaConfig || {});
@@ -7121,11 +7124,14 @@ var Index = function (_a) {
                     setAuthToken(response.AuthToken);
                     formRequestHash = generateRequestHash(__assign(__assign({}, alfaFormKeys), { AuthToken: response.AuthToken }), alfaConfig ? alfaConfig.secretKey1 : '', alfaConfig ? alfaConfig.secretKey2 : '');
                     setRequestHash(formRequestHash);
-                    return [3 /*break*/, 4];
+                    return [3 /*break*/, 5];
                 case 3:
                     err_1 = _a.sent();
                     throw new Error(err_1);
-                case 4: return [2 /*return*/];
+                case 4:
+                    setIsSubmitting(false);
+                    return [7 /*endfinally*/];
+                case 5: return [2 /*return*/];
             }
         });
     }); }, [alfaConfig, isSandbox, alfaFormKeys]);
@@ -7146,7 +7152,7 @@ var Index = function (_a) {
             form.submit();
         }
     }, [alfaFormKeys, authToken, isSandbox, requestHash]);
-    return (React__default["default"].createElement("button", { onClick: handleClick, type: "button", className: className }, message !== null && message !== void 0 ? message : 'Submit'));
+    return (React__default["default"].createElement("button", { disabled: isSubmitting, onClick: isSubmitting ? undefined : handleClick, type: "button", className: className }, message !== null && message !== void 0 ? message : 'Submit'));
 };
 
 module.exports = Index;
