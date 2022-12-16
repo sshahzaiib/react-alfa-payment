@@ -1,6 +1,6 @@
 import './App.css';
 import ReactAlfaPayment from 'react-alfa-payment';
-import { useCallback, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 function App() {
   const [alfaConfig, setAlfaConfig] = useState({
     merchantId: '',
@@ -13,10 +13,11 @@ function App() {
     secretKey1: '',
     secretKey2: '',
     transactionReferenceNumber: '',
-    transactionAmount: 0,
+    transactionAmount: 100,
   });
   const [environment, setEnvironment] = useState('production');
   const handleChange = useCallback((e) => {
+    e.preventDefault();
     setAlfaConfig((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
@@ -25,6 +26,8 @@ function App() {
   const handleEnvChange = useCallback((e) => {
     setEnvironment(e.target.value);
   }, []);
+
+  // console.log(alfaConfig, environment)
   return (
     <div className="App">
       <h1>Test your credentials here</h1>
@@ -111,4 +114,4 @@ function App() {
   );
 }
 
-export default App;
+export default memo(App);

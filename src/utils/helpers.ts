@@ -67,7 +67,7 @@ export const generateRequestHash = (
   values: any,
   secretKey1: string,
   secretKey2: string
-): string => {
+): String => {
   if (
     (typeof values === 'object' &&
       !Object.values(values).every((value) => value)) ||
@@ -96,12 +96,12 @@ export const generateRequestHash = (
 
 export const getHSAuthToken = async (
   data: any,
-  HS_RequestHash: string,
+  HS_RequestHash: String,
   isSandbox: Boolean
 ): Promise<{
-  AuthToken: string;
-  ReturnURL: string;
-  success: boolean;
+  AuthToken: String;
+  ReturnURL: String;
+  success: Boolean;
 }> => {
   const _data: {
     [key: string]: string;
@@ -122,12 +122,16 @@ export const getHSAuthToken = async (
     headers: myHeaders,
     body: urlencoded,
   };
-
-  const response = await (
-    await fetch(
-      isSandbox ? SANDBOX_HANDSHAKE_URL : HANDSHAKE_URL,
-      requestOptions
-    )
-  ).json();
-  return response;
+  try {
+    const response = await (
+      await fetch(
+        isSandbox ? SANDBOX_HANDSHAKE_URL : HANDSHAKE_URL,
+        requestOptions
+      )
+    ).json();
+    if (!response.AuthToken) throw new Error('Invalid Request');
+    return response;
+  } catch (error: any) {
+    throw new Error(error);
+  }
 };
