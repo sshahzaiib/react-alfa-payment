@@ -122,12 +122,16 @@ export const getHSAuthToken = async (
     headers: myHeaders,
     body: urlencoded,
   };
-
-  const response = await (
-    await fetch(
-      isSandbox ? SANDBOX_HANDSHAKE_URL : HANDSHAKE_URL,
-      requestOptions
-    )
-  ).json();
-  return response;
+  try {
+    const response = await (
+      await fetch(
+        isSandbox ? SANDBOX_HANDSHAKE_URL : HANDSHAKE_URL,
+        requestOptions
+      )
+    ).json();
+    if (!response.AuthToken) throw new Error('Invalid Request');
+    return response;
+  } catch (error: any) {
+    throw new Error(error);
+  }
 };
