@@ -1,7 +1,7 @@
 {
   "name": "react-alfa-payment",
   "version": "1.1.1",
-  "keywords": [],
+  "keywords": ["payment", "alfa", "react", "alfalah-bank"],
   "description": "Alfalah Credit Card Payment Gateway for React",
   "main": "dist/index.min.js",
   "module": "dist/index.es.js",
