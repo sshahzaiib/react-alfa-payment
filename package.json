@@ -16,7 +16,7 @@
   },
   "homepage": "https://sshahzaiib.github.io/react-alfa-payment",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "scripts": {
     "start": "rollup -c rollup.config.js -w --bundleConfigAsCjs",
     "build": "tsc && rollup -c rollup.config.js",
