@@ -72,6 +72,7 @@ function App() {
 | `isSandbox` | `boolean` | `false` | To determine whether the current environment is a sandbox or not |
 | `message` | `string` | `false` | Text to appear on submit button |
 | `className` | `string` | `false` | CSS className |
+| `ref` | `ref` | `false` | Submit button ref to trigger actions i.e click |
 
 #### Prop: alfaConfig
 `object` containing all of the following (required) properties

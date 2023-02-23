@@ -7106,7 +7106,7 @@ var getHSAuthToken = function (data, HS_RequestHash, isSandbox) { return __await
 /**
  * Main Component
  */
-var Index = function (_a) {
+var Index = React.forwardRef(function (_a, ref) {
     var alfaConfig = _a.alfaConfig, className = _a.className, message = _a.message, _b = _a.isSandbox, isSandbox = _b === void 0 ? false : _b;
     var _c = React.useState(false), isSubmitting = _c[0], setIsSubmitting = _c[1];
     var alfaFormKeys = React__default["default"].useMemo(function () { return getAlfaFormKeys(alfaConfig || {}); }, [alfaConfig]);
@@ -7157,8 +7157,9 @@ var Index = function (_a) {
             }
         });
     }); }, [alfaConfig, isSandbox, alfaFormKeys, handleSubmit]);
-    return (React__default["default"].createElement("button", { disabled: isSubmitting, onClick: isSubmitting ? undefined : handleClick, type: "button", className: className }, message !== null && message !== void 0 ? message : 'Submit'));
-};
+    return (React__default["default"].createElement("button", { ref: ref, disabled: isSubmitting, onClick: isSubmitting ? undefined : handleClick, type: "button", className: className }, message !== null && message !== void 0 ? message : 'Submit'));
+});
+Index.displayName = 'Main Component';
 
 module.exports = Index;
 //# sourceMappingURL=index.js.map
