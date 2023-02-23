@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { forwardRef, useCallback, useState } from 'react';
 import { POST_URL, SANDBOX_POST_URL } from 'utils/constants';
 import {
   generateRequestHash,
@@ -31,86 +31,88 @@ export type Props = {
   isSandbox?: Boolean;
 };
 
+export type Ref = HTMLButtonElement;
+
 /**
  * Main Component
  */
-const Index = ({
-  alfaConfig,
-  className,
-  message,
-  isSandbox = false,
-}: Props): JSX.IntrinsicElements[keyof JSX.IntrinsicElements] => {
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+const Index = forwardRef<Ref, Props>(
+  ({ alfaConfig, className, message, isSandbox = false }, ref) => {
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const alfaFormKeys = React.useMemo(
-    () => getAlfaFormKeys(alfaConfig || {}),
-    [alfaConfig]
-  );
+    const alfaFormKeys = React.useMemo(
+      () => getAlfaFormKeys(alfaConfig || {}),
+      [alfaConfig]
+    );
 
-  const handleSubmit = useCallback(
-    (authToken: String, requestHash: String) => {
-      if (authToken && requestHash) {
-        const form = document.createElement('form');
-        form.setAttribute('action', isSandbox ? SANDBOX_POST_URL : POST_URL);
-        form.setAttribute('method', 'post');
-        form.setAttribute('novalidate', 'novalidate');
-        form.setAttribute('hidden', 'hidden');
+    const handleSubmit = useCallback(
+      (authToken: String, requestHash: String) => {
+        if (authToken && requestHash) {
+          const form = document.createElement('form');
+          form.setAttribute('action', isSandbox ? SANDBOX_POST_URL : POST_URL);
+          form.setAttribute('method', 'post');
+          form.setAttribute('novalidate', 'novalidate');
+          form.setAttribute('hidden', 'hidden');
 
-        let formFields = `
+          let formFields = `
         <input name="AuthToken" value='${authToken}' readOnly />
         <input name="RequestHash" value='${requestHash}' readOnly />
         `;
-        Object.entries(alfaFormKeys).forEach(([key, value]) => {
-          formFields += `<input key=${key} name=${key} value=${
-            value || key
-          } readOnly />`;
-        });
-        form.innerHTML = formFields;
-        document.body.appendChild(form);
-        form.submit();
-      }
-    },
-    [alfaFormKeys, isSandbox]
-  );
+          Object.entries(alfaFormKeys).forEach(([key, value]) => {
+            formFields += `<input key=${key} name=${key} value=${
+              value || key
+            } readOnly />`;
+          });
+          form.innerHTML = formFields;
+          document.body.appendChild(form);
+          form.submit();
+        }
+      },
+      [alfaFormKeys, isSandbox]
+    );
 
-  const handleClick = useCallback(
-    async (e: React.SyntheticEvent) => {
-      e.preventDefault();
-      try {
-        setIsSubmitting(true);
-        if (typeof alfaConfig === 'undefined') return;
-        const data = getAlfaHandshakeKeys(alfaConfig || {});
-        const requestHash: String = generateRequestHash(
-          data,
-          alfaConfig.secretKey1,
-          alfaConfig.secretKey2
-        );
-        const response = await getHSAuthToken(data, requestHash, isSandbox);
-        const formRequestHash: String = generateRequestHash(
-          { ...alfaFormKeys, AuthToken: response.AuthToken },
-          alfaConfig ? alfaConfig.secretKey1 : '',
-          alfaConfig ? alfaConfig.secretKey2 : ''
-        );
-        handleSubmit(response.AuthToken, formRequestHash);
-      } catch (err: any) {
-        throw new Error(err);
-      } finally {
-        setIsSubmitting(false);
-      }
-    },
-    [alfaConfig, isSandbox, alfaFormKeys, handleSubmit]
-  );
+    const handleClick = useCallback(
+      async (e: React.SyntheticEvent) => {
+        e.preventDefault();
+        try {
+          setIsSubmitting(true);
+          if (typeof alfaConfig === 'undefined') return;
+          const data = getAlfaHandshakeKeys(alfaConfig || {});
+          const requestHash: String = generateRequestHash(
+            data,
+            alfaConfig.secretKey1,
+            alfaConfig.secretKey2
+          );
+          const response = await getHSAuthToken(data, requestHash, isSandbox);
+          const formRequestHash: String = generateRequestHash(
+            { ...alfaFormKeys, AuthToken: response.AuthToken },
+            alfaConfig ? alfaConfig.secretKey1 : '',
+            alfaConfig ? alfaConfig.secretKey2 : ''
+          );
+          handleSubmit(response.AuthToken, formRequestHash);
+        } catch (err: any) {
+          throw new Error(err);
+        } finally {
+          setIsSubmitting(false);
+        }
+      },
+      [alfaConfig, isSandbox, alfaFormKeys, handleSubmit]
+    );
 
-  return (
-    <button
-      disabled={isSubmitting}
-      onClick={isSubmitting ? undefined : handleClick}
-      type="button"
-      className={className}
-    >
-      {message ?? 'Submit'}
-    </button>
-  );
-};
+    return (
+      <button
+        ref={ref}
+        disabled={isSubmitting}
+        onClick={isSubmitting ? undefined : handleClick}
+        type="button"
+        className={className}
+      >
+        {message ?? 'Submit'}
+      </button>
+    );
+  }
+);
+
+Index.displayName = 'Main Component';
 
 export default Index;
