@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import React from 'react';
 /**
  * Main Component Props
  */
@@ -21,9 +21,10 @@ export type Props = {
     alfaConfig: Config;
     isSandbox?: Boolean;
 };
+export type Ref = HTMLButtonElement;
 /**
  * Main Component
  */
-declare const Index: ({ alfaConfig, className, message, isSandbox, }: Props) => JSX.IntrinsicElements[keyof JSX.IntrinsicElements];
+declare const Index: React.ForwardRefExoticComponent<Props & React.RefAttributes<HTMLButtonElement>>;
 export default Index;
 //# sourceMappingURL=index.d.ts.map
