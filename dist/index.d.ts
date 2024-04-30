@@ -19,7 +19,7 @@ export type Props = {
     message?: string;
     className?: string;
     alfaConfig: Config;
-    isSandbox?: Boolean;
+    isSandbox?: boolean;
 };
 export type Ref = HTMLButtonElement;
 /**

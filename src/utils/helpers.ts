@@ -67,7 +67,7 @@ export const generateRequestHash = (
   values: any,
   secretKey1: string,
   secretKey2: string
-): String => {
+): string => {
   if (
     (typeof values === 'object' &&
       !Object.values(values).every((value) => value)) ||
@@ -96,12 +96,12 @@ export const generateRequestHash = (
 
 export const getHSAuthToken = async (
   data: any,
-  HS_RequestHash: String,
-  isSandbox: Boolean
+  HS_RequestHash: string,
+  isSandbox: boolean
 ): Promise<{
-  AuthToken: String;
-  ReturnURL: String;
-  success: Boolean;
+  AuthToken: string;
+  ReturnURL: string;
+  success: boolean;
 }> => {
   const _data: {
     [key: string]: string;

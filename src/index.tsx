@@ -28,7 +28,7 @@ export type Props = {
   message?: string;
   className?: string;
   alfaConfig: Config;
-  isSandbox?: Boolean;
+  isSandbox?: boolean;
 };
 
 export type Ref = HTMLButtonElement;
@@ -46,7 +46,7 @@ const Index = forwardRef<Ref, Props>(
     );
 
     const handleSubmit = useCallback(
-      (authToken: String, requestHash: String) => {
+      (authToken: string, requestHash: string) => {
         if (authToken && requestHash) {
           const form = document.createElement('form');
           form.setAttribute('action', isSandbox ? SANDBOX_POST_URL : POST_URL);
@@ -78,13 +78,13 @@ const Index = forwardRef<Ref, Props>(
           setIsSubmitting(true);
           if (typeof alfaConfig === 'undefined') return;
           const data = getAlfaHandshakeKeys(alfaConfig || {});
-          const requestHash: String = generateRequestHash(
+          const requestHash: string = generateRequestHash(
             data,
             alfaConfig.secretKey1,
             alfaConfig.secretKey2
           );
           const response = await getHSAuthToken(data, requestHash, isSandbox);
-          const formRequestHash: String = generateRequestHash(
+          const formRequestHash: string = generateRequestHash(
             { ...alfaFormKeys, AuthToken: response.AuthToken },
             alfaConfig ? alfaConfig.secretKey1 : '',
             alfaConfig ? alfaConfig.secretKey2 : ''
