@@ -26,10 +26,10 @@ export type AlfaFormKeys = {
     TransactionAmount: number;
 };
 export declare const getAlfaFormKeys: (config: Config) => AlfaFormKeys | {};
-export declare const generateRequestHash: (values: any, secretKey1: string, secretKey2: string) => String;
-export declare const getHSAuthToken: (data: any, HS_RequestHash: String, isSandbox: Boolean) => Promise<{
-    AuthToken: String;
-    ReturnURL: String;
-    success: Boolean;
+export declare const generateRequestHash: (values: any, secretKey1: string, secretKey2: string) => string;
+export declare const getHSAuthToken: (data: any, HS_RequestHash: string, isSandbox: boolean) => Promise<{
+    AuthToken: string;
+    ReturnURL: string;
+    success: boolean;
 }>;
 //# sourceMappingURL=helpers.d.ts.map
