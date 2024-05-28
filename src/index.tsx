@@ -1,16 +1,16 @@
 import React, { forwardRef, useCallback, useState } from 'react';
-import { POST_URL, SANDBOX_POST_URL } from 'utils/constants';
+import { POST_URL, SANDBOX_POST_URL } from './utils/constants';
 import {
   generateRequestHash,
   getAlfaFormKeys,
   getAlfaHandshakeKeys,
   getHSAuthToken,
-} from 'utils/helpers';
+} from './utils/helpers';
 
 /**
- * Main Component Props
+ * @name Config
+ * @description The configuration object for the Alfa Payment Integration
  */
-
 export type Config = {
   merchantId: number | string;
   storeId: number | string;
@@ -24,6 +24,11 @@ export type Config = {
   secretKey1: string;
   secretKey2: string;
 };
+
+/**
+ * @name Props
+ * @description The props object for the ReactAlfaPayment component
+ */
 export type Props = {
   message?: string;
   className?: string;
@@ -31,12 +36,19 @@ export type Props = {
   isSandbox?: boolean;
 };
 
+/**
+ * @name Ref
+ * @description The ref object for the ReactAlfaPayment component
+ */
 export type Ref = HTMLButtonElement;
 
 /**
- * Main Component
+ * @name ReactAlfaPayment
+ * @description The component that handles the Alfa Payment Integration process in React
+ * @param {Props} props
+ * @returns {JSX.Element}
  */
-const Index = forwardRef<Ref, Props>(
+const ReactAlfaPayment = forwardRef<Ref, Props>(
   ({ alfaConfig, className, message, isSandbox = false }, ref) => {
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
@@ -113,6 +125,6 @@ const Index = forwardRef<Ref, Props>(
   }
 );
 
-Index.displayName = 'Main Component';
+ReactAlfaPayment.displayName = 'ReactAlfaPayment';
 
-export default Index;
+export default ReactAlfaPayment;

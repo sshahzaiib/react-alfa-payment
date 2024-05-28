@@ -7600,9 +7600,12 @@ var getHSAuthToken = function (data, HS_RequestHash, isSandbox) { return __await
 }); };
 
 /**
- * Main Component
+ * @name ReactAlfaPayment
+ * @description The component that handles the Alfa Payment Integration process in React
+ * @param {Props} props
+ * @returns {JSX.Element}
  */
-var Index = React.forwardRef(function (_a, ref) {
+var ReactAlfaPayment = React.forwardRef(function (_a, ref) {
     var alfaConfig = _a.alfaConfig, className = _a.className, message = _a.message, _b = _a.isSandbox, isSandbox = _b === void 0 ? false : _b;
     var _c = React.useState(false), isSubmitting = _c[0], setIsSubmitting = _c[1];
     var alfaFormKeys = React.useMemo(function () { return getAlfaFormKeys(alfaConfig || {}); }, [alfaConfig]);
@@ -7655,7 +7658,7 @@ var Index = React.forwardRef(function (_a, ref) {
     }); }, [alfaConfig, isSandbox, alfaFormKeys, handleSubmit]);
     return (React.createElement("button", { ref: ref, disabled: isSubmitting, onClick: isSubmitting ? undefined : handleClick, type: "button", className: className }, message !== null && message !== void 0 ? message : 'Submit'));
 });
-Index.displayName = 'Main Component';
+ReactAlfaPayment.displayName = 'ReactAlfaPayment';
 
-module.exports = Index;
+module.exports = ReactAlfaPayment;
 //# sourceMappingURL=index.js.map
