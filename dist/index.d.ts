@@ -1,6 +1,7 @@
 import React from 'react';
 /**
- * Main Component Props
+ * @name Config
+ * @description The configuration object for the Alfa Payment Integration
  */
 export type Config = {
     merchantId: number | string;
@@ -15,16 +16,27 @@ export type Config = {
     secretKey1: string;
     secretKey2: string;
 };
+/**
+ * @name Props
+ * @description The props object for the ReactAlfaPayment component
+ */
 export type Props = {
     message?: string;
     className?: string;
     alfaConfig: Config;
     isSandbox?: boolean;
 };
+/**
+ * @name Ref
+ * @description The ref object for the ReactAlfaPayment component
+ */
 export type Ref = HTMLButtonElement;
 /**
- * Main Component
+ * @name ReactAlfaPayment
+ * @description The component that handles the Alfa Payment Integration process in React
+ * @param {Props} props
+ * @returns {JSX.Element}
  */
-declare const Index: React.ForwardRefExoticComponent<Props & React.RefAttributes<HTMLButtonElement>>;
-export default Index;
+declare const ReactAlfaPayment: React.ForwardRefExoticComponent<Props & React.RefAttributes<HTMLButtonElement>>;
+export default ReactAlfaPayment;
 //# sourceMappingURL=index.d.ts.map
